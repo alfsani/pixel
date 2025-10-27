@@ -3,19 +3,8 @@
   "version": "3.10.0",
   "description": "Draw and animate Pixel Art, then export the results to CSS or download them, powered by React",
   "author": "Javier Valencia Romero",
-  "scripts": {
-    "lint": "eslint **/*.{js,jsx}",
-    "csslint": "stylelint src/**/*.{css,js,jsx}",
-    "prettier": "prettier **/*.{js,jsx,json,yml,yaml,css,md}",
-    "format": "npm run prettier -- --write --list-different",
-    "test": "jest",
-    "test:watch": "npm run test -- --watch",
-    "validate": "npm run lint && npm run csslint && npm run prettier -- --list-different && npm run test",
-    "development": "webpack-dev-server --hot",
-    "deploy": "npx cross-env NODE_ENV=production webpack --mode production --config webpack.production.config.js",
-    "postinstall": "cross-env NODE_ENV=production webpack --mode production --config webpack.production.config.js"
-  },
   "main": "index.js",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/jvalen/pixel-art-react"
@@ -28,11 +17,26 @@
     "redux",
     "express"
   ],
-  "license": "MIT",
+  "scripts": {
+    "start": "webpack serve --mode development --config webpack.config.js --hot",
+    "build": "cross-env NODE_ENV=production webpack --mode production --config webpack.production.config.js",
+    "deploy": "npm run build",
+    "lint": "eslint **/*.{js,jsx}",
+    "csslint": "stylelint src/**/*.{css,js,jsx}",
+    "prettier": "prettier **/*.{js,jsx,json,yml,yaml,css,md}",
+    "format": "npm run prettier -- --write --list-different",
+    "test": "jest",
+    "test:watch": "npm run test -- --watch",
+    "validate": "npm run lint && npm run csslint && npm run prettier -- --list-different && npm run test"
+  },
   "jest": {
     "setupFiles": [
       "jest-canvas-mock"
     ]
+  },
+  "engines": {
+    "node": "16.x.x",
+    "npm": "8.x.x"
   },
   "dependencies": {
     "assert": "^2.1.0",
@@ -84,10 +88,6 @@
     "url-loader": "^4.1.1",
     "util": "^0.12.5",
     "whatwg-fetch": "^2.0.4"
-  },
-  "engines": {
-    "node": "16.x.x",
-    "npm": "8.x.x"
   },
   "devDependencies": {
     "@babel/core": "^7.5.4",

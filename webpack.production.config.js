@@ -5,7 +5,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const Dotenv = require('dotenv-webpack');
 const path = require('path');
 
-const config = {
+module.exports = {
   mode: "production",
   entry: [
     './src/utils/polyfills.js',
@@ -13,7 +13,7 @@ const config = {
   ],
   output: {
     filename: 'bundle.js',
-    path: path.join(__dirname, '/dist'), // output untuk Cloudflare/Vercel
+    path: path.resolve(__dirname, 'deploy'), // hasil build ke folder deploy
     clean: true,
   },
   module: {
@@ -21,7 +21,7 @@ const config = {
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
-        loader: 'babel-loader',
+        use: 'babel-loader',
       },
       {
         test: /\.css$/i,
@@ -40,17 +40,16 @@ const config = {
     extensions: ['.js', '.jsx'],
     fallback: {
       stream: require.resolve("stream-browserify"),
-      util: require.resolve("util"),
+      util: require.resolve("util/"),
       buffer: require.resolve("buffer/"),
       assert: require.resolve("assert/"),
     },
   },
   plugins: [
-    // 🔧 Tidak lagi butuh .env.example
     new Dotenv({
-      systemvars: true,  // pakai env dari sistem
-      safe: false,       // tidak butuh file .env.example
-      silent: true,      // jangan munculkan warning
+      systemvars: true,
+      safe: false,
+      silent: true,
     }),
 
     new CopyWebpackPlugin({
@@ -59,7 +58,7 @@ const config = {
         { from: 'src/assets/apple-touch-icon.png', to: 'apple-touch-icon.png' },
         { from: 'src/assets/regular-icon.png', to: 'regular-icon.png' },
         { from: 'src/assets/coindrop-img.png', to: 'coindrop-img.png' },
-        { from: './public/_redirects', to: './' },
+        { from: 'public/_redirects', to: './' },
       ],
     }),
 
@@ -68,8 +67,12 @@ const config = {
     }),
 
     new HtmlWebpackPlugin({
-      template: './public/index.html', // pastikan ini file yang kamu edit
+      template: './public/index.html',
       inject: true,
+      minify: {
+        collapseWhitespace: true,
+        removeComments: true,
+      },
     }),
 
     new webpack.DefinePlugin({
@@ -82,7 +85,5 @@ const config = {
     }),
   ],
   target: "web",
-  stats: false,
+  stats: "minimal",
 };
-
-module.exports = config;
