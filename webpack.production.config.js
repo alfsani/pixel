@@ -13,9 +13,10 @@ const config = {
   ],
   output: {
     filename: 'bundle.js',
-    path: path.join(__dirname, '/deploy'),
+    path: path.join(__dirname, '/dist'), // <- output folder untuk Cloudflare Pages
+    clean: true, // membersihkan folder dist sebelum build
   },
-    module: {
+  module: {
     rules: [
       {
         test: /\.jsx?$/,
@@ -23,7 +24,7 @@ const config = {
         loader: 'babel-loader'
       },
       {
-        test:   /\.css$/i,
+        test: /\.css$/i,
         use: [
           MiniCssExtractPlugin.loader,
           'css-loader',
@@ -50,7 +51,7 @@ const config = {
     },
   },
   plugins: [
-    new Dotenv(),
+    new Dotenv({ safe: true }), // akan load .env jika ada, tapi tidak gagal jika kosong
     new CopyWebpackPlugin({
       patterns: [
         { from: 'src/assets/favicon.ico', to: 'favicon.ico' },
@@ -68,7 +69,7 @@ const config = {
       inject: true,
     }),
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': '"production"'
+      'process.env.NODE_ENV': JSON.stringify('production')
     }),
     new webpack.ProvidePlugin({
       process: 'process/browser',
