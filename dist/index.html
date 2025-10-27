@@ -1,0 +1,75 @@
+<!doctype html><html><head><meta charset="utf-8"/><meta http-equiv="x-ua-compatible" content="ie=edge"/><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0"/><style>body {
+        margin: 0;
+        background: #555;
+        font-family: monospace;
+        color: #ddd;
+      }
+
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 8px 24px; /* kanan lebih besar agar icon tidak terlalu mepet kiri */
+        background: #4a4a4a;
+        border-bottom: 2px solid #333;
+        box-sizing: border-box;
+      }
+
+      header h1 {
+        font-size: 1.5em;
+        margin: 0;
+        padding-top: 2px; /* sedikit turun agar sejajar dengan icon */
+        line-height: 1;
+      }
+
+      header h1 a {
+        color: #ddd;
+        text-decoration: none;
+      }
+
+      /* --- Ikon Sosial --- */
+      .social-icons {
+        display: flex;
+        gap: 14px;
+        align-items: center;
+        margin-left: auto;
+        justify-content: flex-end;
+      }
+
+      .social-icons a img {
+        width: 22px;
+        height: 22px;
+        filter: brightness(0) invert(1);
+        opacity: 0.8;
+        transition: transform 0.2s, opacity 0.2s;
+      }
+
+      .social-icons a img:hover {
+        transform: scale(1.2);
+        opacity: 1;
+      }
+
+      /* --- Responsive --- */
+      @media (max-width: 768px) {
+        header {
+          flex-direction: row;
+          justify-content: space-between;
+          align-items: center;
+          padding: 10px 16px; /* sedikit lebih kecil di mobile */
+        }
+
+        header h1 {
+          font-size: 1.2em;
+          padding-top: 2px;
+        }
+
+        .social-icons {
+          gap: 10px;
+          justify-content: flex-end;
+        }
+
+        .social-icons a img {
+          width: 20px;
+          height: 20px;
+        }
+      }</style><script defer="defer" src="bundle.js"></script><link href="css/main.css" rel="stylesheet"></head><body><div class="app-container"><header><div class="col-2-3"><h1><a href="/">Art your pixels</a></h1></div><div class="social-icons"><a href="https://twitter.com" target="_blank"><img src="assets/twitter.png" alt="Twitter"/> </a><a href="https://github.com" target="_blank"><img src="assets/pumfun.png" alt="GitHub"/> </a><a href="https://discord.com" target="_blank"><img src="assets/tele.svg" alt="Telegram"/></a></div></header><div id="app"></div></div></body></html>
